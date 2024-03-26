@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <include file="db/changelog/23-02-create-table-students-and-university.xml"/>
+    <include file="db/changelog/26-01-26-02-alter-table-student-drop-fk-university-id.xml"/>
+    <include file="db/changelog/26-02-11-49-alter-table-university-add-created-date.xml"/>
+    <include file="db/changelog/26-01-17-31-alter-table-students-drop-not-null-constraint-deduction-date.xml"/>
+    <include file="db/changelog/27-02-12-13-alter-table-university-change-column-created-date.xml"/>
+    <include file="db/changelog/27-02-15-16-alter-table-students-change-datatype-of-gpa-column.xml"/>
+    <include file="db/changelog/27-02-16-46-alter-table-modify-data-types.xml"/>
+    <include file="db/changelog/12-03-11-00-create-table-teacher-and-course.xml"/>
+    <include file="db/changelog/14-03-14-31-alter-tables-course-teacher-and.xml"/>
+    <include file="db/changelog/20-03-17-00-create-table-files.xml"/>
+    <include file="db/changelog/21-03-22-54-create-table-assignments.xml"/>
+    <include file="db/changelog/26-03-17-31-alter-table-assignments-rename-teacher-id-column.xml"/>
+</databaseChangeLog>

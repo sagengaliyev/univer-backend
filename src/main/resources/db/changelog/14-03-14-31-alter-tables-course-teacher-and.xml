@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.26.xsd">
+<changeSet id="1" author="adil">
+    <addColumn tableName="courses">
+        <column name="is_active" defaultValue="true" type="boolean">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+    <addColumn tableName="courses">
+        <column name="created_date" defaultValue="now()" type="timestamp">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
+    <changeSet id="2" author="adil">
+        <addColumn tableName="teachers">
+            <column name="created_date" type="timestamp" defaultValue="now()">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="teachers">
+            <column name="is_deleted" defaultValue="false" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

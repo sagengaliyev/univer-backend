@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.26.xsd">
+<changeSet id="1" author="adil">
+    <createTable tableName="assignments">
+        <column name="id" type="uuid" value="gen_random_uuid()">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="title" type="varchar(500)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="description" type="varchar(5000)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="teacher_id" type="uuid" value="gen_random_uuid()">
+            <constraints nullable="false"/>
+        </column>
+        <column name="created_date" type="timestamp" defaultValue="now()">
+            <constraints nullable="false"/>
+        </column>
+        <column name="deadline" type="timestamp">
+            <constraints nullable="false"/>
+        </column>
+        <column name="status" type="varchar">
+            <constraints nullable="false"/>
+        </column>
+        <column name="is_deleted" type="boolean">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+</changeSet>
+    <changeSet id="2" author="adil">
+        <createTable tableName="assignment_attached_files">
+            <column name="assignment_id" type="uuid" value="gen_random_uuid()">
+                <constraints nullable="false"
+                             foreignKeyName="FK_ASSIGNATTFILES_ON_ASSIGNMENT"
+                             referencedTableName="assignments"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="attached_files_id" type="uuid" value="gen_random_uuid()">
+                <constraints nullable="false"
+                             foreignKeyName="FK_ASSIGNATTFILES_ON_FILE_ENTITY"
+                             referencedTableName="files"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="adil">
+        <createTable tableName="students_passed_assignment">
+            <column name="assignment_id" type="uuid" value="gen_random_uuid()">
+                <constraints nullable="false"
+                             foreignKeyName="FK_STUDSPASSEDASSIGN_ON_ASSIGNMENT"
+                             referencedTableName="assignments"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="students_who_passed_id" type="uuid" value="gen_random_uuid()">
+                <constraints nullable="false"
+                             foreignKeyName="FK_STUDSPASSEDASSIGN_ON_STUDENT"
+                             referencedTableName="students"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

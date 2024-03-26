@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/univerdb}
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:9090/realms/oauth2-univer-realm}
+  profiles:
+    active: local, dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+base-url: http://localhost:8081
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+base-url: http://localhost:8181
+
+server:
+  port: ${SERVER_PORT:8081}
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: univer-application
+      client-secret: ${CLIENT_SECRET:Tf4XaselUOKvDfK2PTFvZBzDfzyeuoe8}
+

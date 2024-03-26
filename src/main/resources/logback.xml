@@ -1,0 +1,73 @@
+<configuration>
+
+    <property name="LOGS_PATH" value="./logs"/>
+    <property name="PATTERN" value="%d{dd-MM-yyyy HH:mm:ss} {%thread} %-5level %logger{36} - %msg%n"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                ${PATTERN}
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="applicationLogAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_PATH}/application.log</file>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="hibernateLogAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_PATH}/hibernate.log</file>
+        <encoder>
+            <pattern>
+                <pattern>${PATTERN}</pattern>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="springLogAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_PATH}/spring-framework.log</file>
+        <encoder>
+            <pattern>
+                ${PATTERN}
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="userIPAddressLogAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_PATH}/user-ip-address.log</file>
+        <encoder>
+            <pattern>
+                ${PATTERN}
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="kz.sagengaliyev.univerbackend.aspect.UserIPAddressIdentifierAspect" level="INFO">
+        <appender-ref ref="userIPAddressLogAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+
+    <logger name="kz.sagengaliyev.univerbackend" level="DEBUG">
+        <appender-ref ref="applicationLogAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <logger name="org.springframework" level="DEBUG">
+        <appender-ref ref="springLogAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <logger name="org.hibernate" level="DEBUG">
+        <appender-ref ref="hibernateLogAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <root revel="INFO">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+</configuration>

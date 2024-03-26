@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.26.xsd">
+<changeSet id="1" author="adil">
+    <dropForeignKeyConstraint baseTableName="students" constraintName="fk_students_on_university"/>
+    <dropColumn tableName="students" columnName="university_id" />
+
+    <addColumn tableName="students">
+        <column name="university_id" type="bigint">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
+</databaseChangeLog>

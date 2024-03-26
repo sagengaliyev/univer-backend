@@ -1,0 +1,52 @@
+version: '3.8'
+
+networks:
+  univer:
+    external: true
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.7
+    command:
+      - "start-dev"
+    restart: on-failure
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB_VENDOR=POSTGRES
+      - KC_DB_ADDR=jdbc:postgresql://host.docker.internal:5432/univerdb
+      - KC_DB_USER=postgres
+      - KC_DB_PASSWORD=postgres
+    volumes:
+      - /opt/jboss/keycloak/standalone/data
+    networks:
+      - univer
+
+  univer-backend:
+    image: univer-backend-application
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8181"
+    environment:
+      - SERVER_PORT=8181
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/univerdb
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DRIVER_CLASS_NAME=org.postgresql.Driver
+      - JWT_ISSUER_URI=http://keycloak:8080/realms/oauth2-univer-realm
+      - KC_HOSTNAME=keycloak
+      - CLIENT_SECRET=sPGRG40XhuA9qs4djnSexx5G5APNp4aw
+    volumes:
+      - /app/logs
+      - /app/db/changelog
+    depends_on:
+      - keycloak
+    networks:
+      - univer
+
+
